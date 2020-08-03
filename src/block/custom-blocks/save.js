@@ -2,11 +2,11 @@
  * SAVE: alexcuadra Custom Blocks
  */
 import { RichText, MediaUpload, URLInputButton,  BlockControls, AlignmentToolbar } from '@wordpress/block-editor';
-import { IconButton, PanelBody } from '@wordpress/components';
+import { Button, PanelBody } from '@wordpress/components';
 
 const Save = ( props ) => {
 	// extract the contents from props
-	const { attributes: { testimonialText, testimonialName, testimonialImage, testimonialColor }  } = props;
+	const { attributes: { testimonialText, testimonialName, mediaID, mediaURL, testimonialColor }  } = props;
 
 	return(
 		<div className="testimonial-block" style={{ borderColor : testimonialColor }}>
@@ -14,7 +14,7 @@ const Save = ( props ) => {
 				<RichText.Content value={testimonialText} />
 			</blockquote>
 			<div className="testimonial-info">
-				<img src={testimonialImage} />
+				<img src={mediaURL} />
 				<p style={{ color: testimonialColor }}>
 					<RichText.Content value={testimonialName} />
 				</p>
