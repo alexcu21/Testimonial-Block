@@ -1,15 +1,15 @@
 /**
  * EDIT: alexcuadra Custom Blocks
  */
-import { RichText, MediaUpload, InspectorControls, ColorPalette } from '@wordpress/block-editor';
-import { IconButton, PanelBody } from '@wordpress/components';
+import { RichText, MediaUpload, InspectorControls, ColorPalette, MediaUploadCheck } from '@wordpress/block-editor';
+import { Button, PanelBody } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 const Edit = ( props ) => {
 	// console.log(props);
 
         // Extract the contents from attributes
-        const { attributes: { testimonialText, testimonialName, testimonialImage, testimonialColor }, setAttributes } = props;
+        const { attributes: { testimonialText, testimonialName, mediaID, mediaURL, testimonialColor }, setAttributes } = props;
 
         // Reads the text from the testimonial
         const onChangeTestimonialText = newText => {
@@ -22,8 +22,8 @@ const Edit = ( props ) => {
         }
 
         // Access the Selected image
-        const onSelectImage = newImage => {
-            setAttributes({ testimonialImage : newImage.sizes.medium.url });
+        const onSelectImage = media => {
+            setAttributes({ mediaURL : media.url, mediaID: media.id });
         }
 
         // access the HEX value from the color pallete
@@ -56,17 +56,21 @@ const Edit = ( props ) => {
                     />
                 </blockquote>
                 <div className="testimonial-info">
-                    <img src={testimonialImage} />
+                    {/* <img src={testimonialImage} /> */}
                     <MediaUpload
                         onSelect={onSelectImage}
                         type="image"
-                        render={({open}) => (
-                            <IconButton 
+                        value={mediaID}
+                        render={({ open }) => (
+                            <Button 
+                                className={mediaID ? "image-button" : "button-large"}
                                 onClick={open}
                                 icon="format-image"
                                 showTooltip="true"
                                 label="Add Image"
-                            />
+                            >
+                                {!mediaID ? __("Upload Image") : <img src={mediaURL} />}
+                            </Button>
                         )}
                     />
                     <p>
